@@ -1,4 +1,4 @@
-package com.example.pilemanager_mk1;
+package com.example.pilemanager_mk1.Classes;
 
 import android.content.Context;
 import android.view.View;

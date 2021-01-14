@@ -1,10 +1,11 @@
-package com.example.pilemanager_mk1
+package com.example.pilemanager_mk1.Activities
 
 import android.database.Cursor
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pilemanager_mk1.R
 import com.example.pilemanager_mk1.db_class.DbOpenHelper
 
 class DbTagInsertActivity : AppCompatActivity() {
@@ -30,7 +31,10 @@ class DbTagInsertActivity : AppCompatActivity() {
         Bt_update!!.setOnClickListener{
             var inp_tag:String = Input_1!!.text.toString()
             if(inp_tag.length != 0){
-                SelectBy(mDbOpenHelper,inp_tag)
+                SelectBy(
+                    mDbOpenHelper,
+                    inp_tag
+                )
             }
         }
 

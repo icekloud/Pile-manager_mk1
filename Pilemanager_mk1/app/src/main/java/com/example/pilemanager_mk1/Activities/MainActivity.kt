@@ -1,14 +1,14 @@
-package com.example.pilemanager_mk1
+package com.example.pilemanager_mk1.Activities
 
 import android.content.Intent
-import android.database.Cursor
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pilemanager_mk1.*
+import com.example.pilemanager_mk1.Classes.DataClass
+import com.example.pilemanager_mk1.Classes.MainListAdapter
+import com.example.pilemanager_mk1.Classes.SearchClass
 import com.example.pilemanager_mk1.db_class.DbOpenHelper
-import kotlin.math.E
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     var Cond_2:EditText? = null
     var Cond_3:EditText? = null
 
-    var listAdapter:MainListAdapter? = null
+    var listAdapter: MainListAdapter? = null
 
 
     var arrayEditText: ArrayList<EditText> = arrayListOf<EditText>()
@@ -61,12 +61,14 @@ class MainActivity : AppCompatActivity() {
         mDbOpenHelper.create()
 
         //val al_searchlist = arrayListOf<String>()
-        var searchClass:SearchClass = SearchClass(mDbOpenHelper)
+        var searchClass: SearchClass =
+            SearchClass(mDbOpenHelper)
 
 
         DataList = searchClass.SearchAll()
         //Log.d("al_Searchlist", al_searchlist.size.toString())
-        listAdapter = MainListAdapter(this, DataList)
+        listAdapter =
+            MainListAdapter(this, DataList)
         Lv_view!!.adapter = listAdapter
 
 
@@ -77,7 +79,11 @@ class MainActivity : AppCompatActivity() {
             if(Cond_3!!.text.length != 0)search_list.add(Cond_3!!.text.toString())
 
             DataList = searchClass.SearchBy("TAG",search_list)
-            listAdapter = MainListAdapter(this, DataList)
+            listAdapter =
+                MainListAdapter(
+                    this,
+                    DataList
+                )
             Lv_view!!.adapter = listAdapter
 
 
@@ -86,11 +92,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         Bt_insertactivity!!.setOnClickListener{
-            var intent: Intent = Intent(this,DbInsertActivity::class.java)
+            var intent: Intent = Intent(this,
+                DbInsertActivity::class.java)
             startActivity(intent)
         }
         Bt_inserttagactivity!!.setOnClickListener{
-            var intent: Intent = Intent(this,DbTagInsertActivity::class.java)
+            var intent: Intent = Intent(this,
+                DbTagInsertActivity::class.java)
             startActivity(intent)
         }
         Bt_reset!!.setOnClickListener{

@@ -1,10 +1,12 @@
-package com.example.pilemanager_mk1
+package com.example.pilemanager_mk1.Activities
 
 import android.database.Cursor
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pilemanager_mk1.Classes.CustomAdapter
+import com.example.pilemanager_mk1.R
 import com.example.pilemanager_mk1.db_class.DbOpenHelper
 
 

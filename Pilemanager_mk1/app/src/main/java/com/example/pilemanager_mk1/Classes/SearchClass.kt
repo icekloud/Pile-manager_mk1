@@ -1,4 +1,4 @@
-package com.example.pilemanager_mk1
+package com.example.pilemanager_mk1.Classes
 
 import android.database.Cursor
 import com.example.pilemanager_mk1.db_class.DbOpenHelper
@@ -31,7 +31,17 @@ class SearchClass(private val mDbOpenHelper: DbOpenHelper) {
             map_data.put("VIEW",VIEW)
             map_data.put("ETC",ETC)
 
-            var Data = DataClass(_ID.toInt(),ID,LOCATION,DATE,LENGTH.toInt(),TAG,RATE.toInt(),VIEW.toInt(),ETC)
+            var Data = DataClass(
+                _ID.toInt(),
+                ID,
+                LOCATION,
+                DATE,
+                LENGTH.toInt(),
+                TAG,
+                RATE.toInt(),
+                VIEW.toInt(),
+                ETC
+            )
 
             if(Keyword == "TAG"){
                 for(i in SearchArray) {
@@ -82,7 +92,17 @@ class SearchClass(private val mDbOpenHelper: DbOpenHelper) {
             map_data.put("VIEW",VIEW)
             map_data.put("ETC",ETC)
 
-            var Data = DataClass(_ID.toInt(),ID,LOCATION,DATE,LENGTH.toInt(),TAG,RATE.toInt(),VIEW.toInt(),ETC)
+            var Data = DataClass(
+                _ID.toInt(),
+                ID,
+                LOCATION,
+                DATE,
+                LENGTH.toInt(),
+                TAG,
+                RATE.toInt(),
+                VIEW.toInt(),
+                ETC
+            )
 
             if(Keyword == "TAG"){
                 var flag:Boolean = true
@@ -138,7 +158,17 @@ class SearchClass(private val mDbOpenHelper: DbOpenHelper) {
             map_data.put("VIEW",VIEW)
             map_data.put("ETC",ETC)
 
-            var Data = DataClass(_ID.toInt(),ID,LOCATION,DATE,LENGTH.toInt(),TAG,RATE.toInt(),VIEW.toInt(),ETC)
+            var Data = DataClass(
+                _ID.toInt(),
+                ID,
+                LOCATION,
+                DATE,
+                LENGTH.toInt(),
+                TAG,
+                RATE.toInt(),
+                VIEW.toInt(),
+                ETC
+            )
             al_datalist.add(Data)
 
         }

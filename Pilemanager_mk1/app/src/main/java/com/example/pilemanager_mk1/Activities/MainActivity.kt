@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         Bt_insertactivity!!.setOnClickListener{
             var intent: Intent = Intent(this,
-                DbInsertActivity::class.java)
+                FileTest::class.java)
             startActivity(intent)
         }
         Bt_inserttagactivity!!.setOnClickListener{

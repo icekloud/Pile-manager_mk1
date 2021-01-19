@@ -16,9 +16,12 @@ import java.lang.RuntimeException
 import java.net.URLEncoder
 
 
+
 class FileTest : AppCompatActivity() {
 
     var textview:TextView? = null
+    var mDbOpenHelper = DbOpenHelper(this)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +41,9 @@ class FileTest : AppCompatActivity() {
 
         var files: Array<File> = folder.listFiles()
 
-        var mDbOpenHelper = DbOpenHelper(this)
         mDbOpenHelper.open()
         mDbOpenHelper.create()
-        var searchclass: SearchClass = SearchClass(mDbOpenHelper)
-        var already_files = searchclass.SearchAll()
+
         val retriever: MediaMetadataRetriever = MediaMetadataRetriever()
 
         if (folder.isDirectory && folder.exists()) {
@@ -50,8 +51,9 @@ class FileTest : AppCompatActivity() {
 
             if (files != null) {
                 for (i in files) {
+                    Log.d("exists :",i.path + mDbOpenHelper.existLOCATION(i.path).toString())
 
-                        if (i.isFile && i.name.endsWith(".mp4")) {
+                        if (!mDbOpenHelper.existLOCATION(i.path) && i.isFile && i.name.endsWith(".mp4")) {
                             try {
                             Log.d("currentfile : ", i.name)
                             retriever.setDataSource(i.path)
@@ -68,37 +70,17 @@ class FileTest : AppCompatActivity() {
                             val rate: Int = -1
                             val view: Int = 0
                             val etc: String = ""
-
-                            if (already_files == null) {
                                 mDbOpenHelper.insertColumn(
-                                    id,
-                                    location,
-                                    date,
-                                    length,
-                                    tag,
-                                    rate,
-                                    view,
-                                    etc
+                                        id,
+                                        location,
+                                        date,
+                                        length,
+                                        tag,
+                                        rate,
+                                        view,
+                                        etc
                                 )
-                            } else {
-                                var duplicate = false
-                                for (i in already_files) {
-                                    if (i.location.equals(location)) {
-                                        duplicate = true
-                                        break
-                                    }
-                                }
-                                if (!duplicate) mDbOpenHelper.insertColumn(
-                                    id,
-                                    location,
-                                    date,
-                                    length,
-                                    tag,
-                                    rate,
-                                    view,
-                                    etc
-                                )
-                            }
+
                         }catch (e: RuntimeException) {
                                 val id: String = i.name
                                 val location: String = i.path
@@ -108,27 +90,7 @@ class FileTest : AppCompatActivity() {
                                 val rate: Int = -1
                                 val view: Int = 0
                                 val etc: String = ""
-
-                                if (already_files == null) {
                                     mDbOpenHelper.insertColumn(
-                                        id,
-                                        location,
-                                        date,
-                                        length,
-                                        tag,
-                                        rate,
-                                        view,
-                                        etc
-                                    )
-                                } else {
-                                    var duplicate = false
-                                    for (i in already_files) {
-                                        if (i.location.equals(location)) {
-                                            duplicate = true
-                                            break
-                                        }
-                                    }
-                                    if (!duplicate) mDbOpenHelper.insertColumn(
                                         id,
                                         location,
                                         date,
@@ -151,5 +113,13 @@ class FileTest : AppCompatActivity() {
             //retriever.release()
         }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        //mDbOpenHelper.close()
     }
-}
+
+
+    }
+
+
+

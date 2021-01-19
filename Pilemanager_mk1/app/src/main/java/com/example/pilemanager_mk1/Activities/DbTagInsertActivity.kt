@@ -12,6 +12,7 @@ class DbTagInsertActivity : AppCompatActivity() {
     var arrayEditText: ArrayList<EditText> = arrayListOf<EditText>()
     var Bt_update:Button? = null
     var Input_1:EditText? = null
+    var mDbOpenHelper = DbOpenHelper(this)
 
 
 
@@ -20,7 +21,6 @@ class DbTagInsertActivity : AppCompatActivity() {
         setContentView(R.layout.activity_inserttag)
 
 
-        var mDbOpenHelper = DbOpenHelper(this)
         mDbOpenHelper.open()
         mDbOpenHelper.create()
 
@@ -41,7 +41,7 @@ class DbTagInsertActivity : AppCompatActivity() {
 
 
         }
-    }
+
     fun SelectBy(mDbOpenHelper: DbOpenHelper,Tag:String) {
         val iCursor: Cursor = mDbOpenHelper.selecttagColumns()
         var res:String = ""
@@ -62,3 +62,9 @@ class DbTagInsertActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //mDbOpenHelper.close()
+    }
+}

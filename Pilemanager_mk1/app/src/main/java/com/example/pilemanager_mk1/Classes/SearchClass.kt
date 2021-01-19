@@ -5,12 +5,12 @@ import com.example.pilemanager_mk1.db_class.DbOpenHelper
 
 class SearchClass(private val mDbOpenHelper: DbOpenHelper) {
     //하나라도 걸리면
-    fun SearchBy_contain(Keyword:String,SearchArray:ArrayList<String>): ArrayList<DataClass> {
+    fun SearchBy_contain(Keyword: String, SearchArray: ArrayList<String>): ArrayList<DataClass> {
         val iCursor: Cursor = mDbOpenHelper.selectColumns()
         var res:String = ""
         var al_datalist:ArrayList<DataClass> = arrayListOf<DataClass>()
 
-        val map_data = mutableMapOf<String,String>()
+        val map_data = mutableMapOf<String, String>()
         while(iCursor.moveToNext()){
             var _ID:String = iCursor.getString(iCursor.getColumnIndex("_id"));
             var ID:String = iCursor.getString(iCursor.getColumnIndex("id"));
@@ -21,26 +21,26 @@ class SearchClass(private val mDbOpenHelper: DbOpenHelper) {
             var RATE = iCursor.getString(iCursor.getColumnIndex("rate"));
             var VIEW = iCursor.getString(iCursor.getColumnIndex("view"));
             var ETC = iCursor.getString(iCursor.getColumnIndex("etc"));
-            map_data.put("_ID",_ID)
-            map_data.put("ID",ID)
-            map_data.put("LOCATION",LOCATION)
-            map_data.put("DATE",DATE)
-            map_data.put("LENGTH",LENGTH)
-            map_data.put("TAG",TAG)
-            map_data.put("RATE",RATE)
-            map_data.put("VIEW",VIEW)
-            map_data.put("ETC",ETC)
+            map_data.put("_ID", _ID)
+            map_data.put("ID", ID)
+            map_data.put("LOCATION", LOCATION)
+            map_data.put("DATE", DATE)
+            map_data.put("LENGTH", LENGTH)
+            map_data.put("TAG", TAG)
+            map_data.put("RATE", RATE)
+            map_data.put("VIEW", VIEW)
+            map_data.put("ETC", ETC)
 
             var Data = DataClass(
-                _ID.toInt(),
-                ID,
-                LOCATION,
-                DATE,
-                LENGTH.toInt(),
-                TAG,
-                RATE.toInt(),
-                VIEW.toInt(),
-                ETC
+                    _ID.toInt(),
+                    ID,
+                    LOCATION,
+                    DATE,
+                    LENGTH.toInt(),
+                    TAG,
+                    RATE.toInt(),
+                    VIEW.toInt(),
+                    ETC
             )
 
             if(Keyword == "TAG"){
@@ -66,12 +66,12 @@ class SearchClass(private val mDbOpenHelper: DbOpenHelper) {
         return al_datalist
     }
     //모두 만족해야
-    fun SearchBy(Keyword:String,SearchArray:ArrayList<String>): ArrayList<DataClass> {
+    fun SearchBy(Keyword: String, SearchArray: ArrayList<String>): ArrayList<DataClass> {
         val iCursor: Cursor = mDbOpenHelper.selectColumns()
         var res:String = ""
         var al_datalist:ArrayList<DataClass> = arrayListOf<DataClass>()
 
-        val map_data = mutableMapOf<String,String>()
+        val map_data = mutableMapOf<String, String>()
         while(iCursor.moveToNext()){
             var _ID:String = iCursor.getString(iCursor.getColumnIndex("_id"));
             var ID:String = iCursor.getString(iCursor.getColumnIndex("id"));
@@ -82,26 +82,26 @@ class SearchClass(private val mDbOpenHelper: DbOpenHelper) {
             var RATE = iCursor.getString(iCursor.getColumnIndex("rate"));
             var VIEW = iCursor.getString(iCursor.getColumnIndex("view"));
             var ETC = iCursor.getString(iCursor.getColumnIndex("etc"));
-            map_data.put("_ID",_ID)
-            map_data.put("ID",ID)
-            map_data.put("LOCATION",LOCATION)
-            map_data.put("DATE",DATE)
-            map_data.put("LENGTH",LENGTH)
-            map_data.put("TAG",TAG)
-            map_data.put("RATE",RATE)
-            map_data.put("VIEW",VIEW)
-            map_data.put("ETC",ETC)
+            map_data.put("_ID", _ID)
+            map_data.put("ID", ID)
+            map_data.put("LOCATION", LOCATION)
+            map_data.put("DATE", DATE)
+            map_data.put("LENGTH", LENGTH)
+            map_data.put("TAG", TAG)
+            map_data.put("RATE", RATE)
+            map_data.put("VIEW", VIEW)
+            map_data.put("ETC", ETC)
 
             var Data = DataClass(
-                _ID.toInt(),
-                ID,
-                LOCATION,
-                DATE,
-                LENGTH.toInt(),
-                TAG,
-                RATE.toInt(),
-                VIEW.toInt(),
-                ETC
+                    _ID.toInt(),
+                    ID,
+                    LOCATION,
+                    DATE,
+                    LENGTH.toInt(),
+                    TAG,
+                    RATE.toInt(),
+                    VIEW.toInt(),
+                    ETC
             )
 
             if(Keyword == "TAG"){
@@ -129,6 +129,7 @@ class SearchClass(private val mDbOpenHelper: DbOpenHelper) {
             map_data.clear()
         }
         al_datalist.distinct()
+        iCursor.close()
         return al_datalist
     }
 
@@ -137,7 +138,7 @@ class SearchClass(private val mDbOpenHelper: DbOpenHelper) {
         var res:String = ""
         var al_datalist:ArrayList<DataClass> = arrayListOf<DataClass>()
 
-        val map_data = mutableMapOf<String,String>()
+        val map_data = mutableMapOf<String, String>()
         while(iCursor.moveToNext()){
             var _ID:String = iCursor.getString(iCursor.getColumnIndex("_id"));
             var ID:String = iCursor.getString(iCursor.getColumnIndex("id"));
@@ -148,31 +149,54 @@ class SearchClass(private val mDbOpenHelper: DbOpenHelper) {
             var RATE = iCursor.getString(iCursor.getColumnIndex("rate"));
             var VIEW = iCursor.getString(iCursor.getColumnIndex("view"));
             var ETC = iCursor.getString(iCursor.getColumnIndex("etc"));
-            map_data.put("_ID",_ID)
-            map_data.put("ID",ID)
-            map_data.put("LOCATION",LOCATION)
-            map_data.put("DATE",DATE)
-            map_data.put("LENGTH",LENGTH)
-            map_data.put("TAG",TAG)
-            map_data.put("RATE",RATE)
-            map_data.put("VIEW",VIEW)
-            map_data.put("ETC",ETC)
+            map_data.put("_ID", _ID)
+            map_data.put("ID", ID)
+            map_data.put("LOCATION", LOCATION)
+            map_data.put("DATE", DATE)
+            map_data.put("LENGTH", LENGTH)
+            map_data.put("TAG", TAG)
+            map_data.put("RATE", RATE)
+            map_data.put("VIEW", VIEW)
+            map_data.put("ETC", ETC)
 
             var Data = DataClass(
-                _ID.toInt(),
-                ID,
-                LOCATION,
-                DATE,
-                LENGTH.toInt(),
-                TAG,
-                RATE.toInt(),
-                VIEW.toInt(),
-                ETC
+                    _ID.toInt(),
+                    ID,
+                    LOCATION,
+                    DATE,
+                    LENGTH.toInt(),
+                    TAG,
+                    RATE.toInt(),
+                    VIEW.toInt(),
+                    ETC
             )
             al_datalist.add(Data)
 
         }
-        al_datalist
+        iCursor.close()
         return al_datalist
     }
+
+    fun SearchTag(SearchArraylist: ArrayList<String>): ArrayList<DataClass>{
+        val Searcharray: Array<String> = SearchArraylist.toArray(arrayOfNulls<String>(SearchArraylist.size))
+        var cursor:Cursor = mDbOpenHelper.selectTag(Searcharray)
+        var al_dataclass = arrayListOf<DataClass>()
+        while (cursor.moveToNext()) {
+            val _ID: Int = cursor.getInt(cursor.getColumnIndex("_id"))
+            val ID: String = cursor.getString(cursor.getColumnIndex("id"))
+            val LOCATION: String = cursor.getString(cursor.getColumnIndex("location"))
+            val DATE: String = cursor.getString(cursor.getColumnIndex("date"))
+            val LENGTH: Int = cursor.getInt(cursor.getColumnIndex("length"))
+            val TAG: String = cursor.getString(cursor.getColumnIndex("tag"))
+            val RATE: Int = cursor.getInt(cursor.getColumnIndex("rate"))
+            val VIEW: Int = cursor.getInt(cursor.getColumnIndex("view"))
+            val ETC: String = cursor.getString(cursor.getColumnIndex("etc"))
+            al_dataclass.add(DataClass(_ID, ID, LOCATION, DATE, LENGTH, TAG, RATE, VIEW, ETC))
+        }
+
+        cursor.close()
+        return al_dataclass
+    }
+
+
 }

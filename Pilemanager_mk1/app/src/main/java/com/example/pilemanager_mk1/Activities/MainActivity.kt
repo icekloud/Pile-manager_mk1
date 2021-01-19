@@ -2,6 +2,7 @@ package com.example.pilemanager_mk1.Activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pilemanager_mk1.*
@@ -31,9 +32,15 @@ class MainActivity : AppCompatActivity() {
     var arrayEditText: ArrayList<EditText> = arrayListOf<EditText>()
     var DataList = arrayListOf<DataClass>()
 
+    var mDbOpenHelper = DbOpenHelper(this)
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mDbOpenHelper.open()
+        mDbOpenHelper.create()
 
 
         //Res_view = findViewById<TextView>(R.id.res_view)
@@ -56,9 +63,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        var mDbOpenHelper = DbOpenHelper(this)
-        mDbOpenHelper.open()
-        mDbOpenHelper.create()
+
 
         //val al_searchlist = arrayListOf<String>()
         var searchClass: SearchClass =
@@ -78,17 +83,13 @@ class MainActivity : AppCompatActivity() {
             if(Cond_2!!.text.length != 0)search_list.add(Cond_2!!.text.toString())
             if(Cond_3!!.text.length != 0)search_list.add(Cond_3!!.text.toString())
 
-            DataList = searchClass.SearchBy("TAG",search_list)
+            DataList = searchClass.SearchTag(search_list)
             listAdapter =
                 MainListAdapter(
                     this,
                     DataList
                 )
             Lv_view!!.adapter = listAdapter
-
-
-
-
         }
 
         Bt_insertactivity!!.setOnClickListener{
@@ -107,16 +108,14 @@ class MainActivity : AppCompatActivity() {
         Bt_reset2!!.setOnClickListener{
             mDbOpenHelper.deleteAllColumns_tagtable()
         }
-
-
-
-
     }
 
-
-
-
+    override fun onDestroy() {
+        super.onDestroy()
+        //mDbOpenHelper.close()
 
     }
+}
+
 
 

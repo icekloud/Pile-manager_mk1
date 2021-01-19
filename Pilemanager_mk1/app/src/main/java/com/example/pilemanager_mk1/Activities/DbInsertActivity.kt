@@ -14,6 +14,7 @@ class DbInsertActivity : AppCompatActivity() {
     var arrayEditText: ArrayList<EditText> = arrayListOf<EditText>()
     var Bt_update:Button? = null
     var al_tag:ArrayList<String> = arrayListOf<String>()
+    var mDbOpenHelper = DbOpenHelper(this)
 
 
 
@@ -23,7 +24,6 @@ class DbInsertActivity : AppCompatActivity() {
         setContentView(R.layout.activity_insert)
 
 
-        var mDbOpenHelper = DbOpenHelper(this)
         mDbOpenHelper.open()
         mDbOpenHelper.create()
 
@@ -105,8 +105,13 @@ class DbInsertActivity : AppCompatActivity() {
 
 
         var array:Array<String> = arrayList.toArray(arrayOfNulls<String>(arrayList.size))
-
+        iCursor.close()
         return array
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //mDbOpenHelper.close()
     }
 
 }

@@ -37,5 +37,8 @@ public final class DataBases {
                 +TAG_KIND+" text not null , "
                 +TAG_CNT+" integer not null ); ";
 
+        public static final String _TABLENAME2 = "temptable";
+        public static final String _CREATE2 = "create table if not exists "+_TABLENAME2+"("
+                +LOCATION+" text not null );" ;
     }
 }

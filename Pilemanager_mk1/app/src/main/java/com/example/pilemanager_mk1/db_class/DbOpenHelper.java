@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.example.pilemanager_mk1.Classes.DataClass;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DbOpenHelper {
@@ -31,6 +32,7 @@ public class DbOpenHelper {
         public void onCreate(SQLiteDatabase db){
             db.execSQL(DataBases.CreateDB._CREATE0);
             db.execSQL(DataBases.CreateDB._CREATE1);
+            db.execSQL(DataBases.CreateDB._CREATE2);
 
         }
 
@@ -38,6 +40,7 @@ public class DbOpenHelper {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
             db.execSQL("DROP TABLE IF EXISTS "+DataBases.CreateDB._TABLENAME0);
             db.execSQL("DROP TABLE IF EXISTS "+DataBases.CreateDB._TABLENAME1);
+            db.execSQL("DROP TABLE IF EXISTS "+DataBases.CreateDB._TABLENAME2);
 
             onCreate(db);
         }
@@ -81,6 +84,12 @@ public class DbOpenHelper {
 
         return mDB.insert(DataBases.CreateDB._TABLENAME1, null, values);
     }
+    public long inserttempColumn(String location){
+        ContentValues values = new ContentValues();
+        values.put(DataBases.CreateDB.LOCATION, location);
+
+        return mDB.insert(DataBases.CreateDB._TABLENAME2, null, values);
+    }
 
     public Cursor selectColumns(){
         return mDB.query(DataBases.CreateDB._TABLENAME0, null, null, null, null, null, null);
@@ -94,6 +103,10 @@ public class DbOpenHelper {
     public void deleteAllColumns_tagtable() {
         mDB.delete(DataBases.CreateDB._TABLENAME1, null, null);
     }
+    public void deleteAllColumns_temptable() {
+        mDB.delete(DataBases.CreateDB._TABLENAME2, null, null);
+    }
+
     public boolean deleteColumn_datatable(long id){
         return mDB.delete(DataBases.CreateDB._TABLENAME0, "_id="+id, null) > 0;
     }
@@ -134,20 +147,4 @@ public class DbOpenHelper {
             return false;
         }
     }
-    public Boolean existLOCATION(String location){
-        String sqlExist = "SELECT EXISTS (SELECT * FROM datatable WHERE location='" + "location" + "' LIMIT 1)"; //as success 추가로 0 또는 1 리턴
-        Cursor cursor = mDB.rawQuery(sqlExist,null);
-        cursor.moveToFirst();
-
-        // cursor.getInt(0) is 1 if column with value exists
-        if (cursor.getInt(0) == 1) {
-            cursor.close();
-            return true;
-        } else {
-            cursor.close();
-            return false;
-        }
-    }
-
-
 }

@@ -198,20 +198,5 @@ class SearchClass(private val mDbOpenHelper: DbOpenHelper) {
         return al_dataclass
     }
 
-    fun newFileSearch(Filelist: ArrayList<String>): ArrayList<String> {
-        mDbOpenHelper.deleteAllColumns_temptable()
-        var newFileList = arrayListOf<String>()
-        for(i in Filelist){
-            mDbOpenHelper.inserttempColumn(i)
-        }
-        val sqlExist = "SELECT * FROM temptable WHERE location not in (select location from datatable)" //as success 추가로 0 또는 1 리턴
-        val cursor = DbOpenHelper.mDB.rawQuery(sqlExist, null)
-        while (cursor.moveToNext()) {
-            val location: String = cursor.getString(cursor.getColumnIndex("location"))
-            newFileList.add(location)
-        }
-        return newFileList
-    }
-
 
 }

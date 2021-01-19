@@ -43,87 +43,75 @@ class FileTest : AppCompatActivity() {
 
         mDbOpenHelper.open()
         mDbOpenHelper.create()
-        var searchClass = SearchClass(mDbOpenHelper)
-
 
         val retriever: MediaMetadataRetriever = MediaMetadataRetriever()
 
         if (folder.isDirectory && folder.exists()) {
             var files: Array<File> = folder.listFiles()
-            var al_filepathnames = arrayListOf<String>()
 
             if (files != null) {
                 for (i in files) {
-                        if(i.name.endsWith(".mp4")) al_filepathnames.add(i.path)
-                    //Log.d("exists :",i.path + mDbOpenHelper.existLOCATION(i.path).toString())
-                }
-                var newfilelist = searchClass.newFileSearch(al_filepathnames)
-                for(i in newfilelist){
-                    var newfile:File = File(i)
-                    if (newfile.isFile && newfile.name.endsWith(".mp4")) {
-                        try {
-                            Log.d("currentfile : ", newfile.name)
-                            retriever.setDataSource(newfile.path)
+                    Log.d("exists :",i.path + mDbOpenHelper.existLOCATION(i.path).toString())
+
+                        if (!mDbOpenHelper.existLOCATION(i.path) && i.isFile && i.name.endsWith(".mp4")) {
+                            try {
+                            Log.d("currentfile : ", i.name)
+                            retriever.setDataSource(i.path)
 
                             var time: String? =
-                                    retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+                                retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
                             var timeInSec: Int = (time!!.toInt() / 1000).toInt()
 
-                            val id: String = newfile.name
-                            val location: String = newfile.path
+                            val id: String = i.name
+                            val location: String = i.path
                             val date: String = "date"
                             val length: Int = timeInSec
                             val tag: String = "<여행><철권>"
                             val rate: Int = -1
                             val view: Int = 0
                             val etc: String = ""
-                            mDbOpenHelper.insertColumn(
-                                    id,
-                                    location,
-                                    date,
-                                    length,
-                                    tag,
-                                    rate,
-                                    view,
-                                    etc
-                            )
+                                mDbOpenHelper.insertColumn(
+                                        id,
+                                        location,
+                                        date,
+                                        length,
+                                        tag,
+                                        rate,
+                                        view,
+                                        etc
+                                )
 
                         }catch (e: RuntimeException) {
-                            val id: String = newfile.name
-                            val location: String = newfile.path
-                            val date: String = "date"
-                            val length: Int = 0
-                            val tag: String = "<여행><철권>"
-                            val rate: Int = -1
-                            val view: Int = 0
-                            val etc: String = ""
-                            mDbOpenHelper.insertColumn(
-                                    id,
-                                    location,
-                                    date,
-                                    length,
-                                    tag,
-                                    rate,
-                                    view,
-                                    etc
-                            )
+                                val id: String = i.name
+                                val location: String = i.path
+                                val date: String = "date"
+                                val length: Int = 0
+                                val tag: String = "<여행><철권>"
+                                val rate: Int = -1
+                                val view: Int = 0
+                                val etc: String = ""
+                                    mDbOpenHelper.insertColumn(
+                                        id,
+                                        location,
+                                        date,
+                                        length,
+                                        tag,
+                                        rate,
+                                        view,
+                                        etc
+                                    )
 
-                        }
+                                }
 
+                            }
                     }
                 }
-            }
-
-
-
-
-
                 retriever.release()
 
-        }
+            }
 
             //retriever.release()
-    }
+        }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -131,7 +119,7 @@ class FileTest : AppCompatActivity() {
     }
 
 
-}
+    }
 
 
 
